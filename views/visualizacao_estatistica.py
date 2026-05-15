@@ -2,11 +2,10 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-from utils.processamento import calcular_frames_por_segundo, calcular_tempos_picos, classificar, plot_intervalos_picos
+from utils.processamento_ic import calcular_frames_por_segundo, calcular_tempos_picos, classificar, plot_intervalos_picos
 
 def carregar():
-    st.title("📊 Dashboard de Análise de Movimento")
-    st.markdown("Envie os arquivos CSV do início e do final da reabilitação para visualizar os gráficos e análises.")
+    st.markdown("Envie os arquivos CSV do início e do final da intervenção para visualizar os gráficos e análises.")
 
     col1, col2 = st.columns(2)
     with col1:
