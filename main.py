@@ -1,45 +1,88 @@
-import os
-import logging
-import pandas as pd
 import streamlit as st
+from views import visualizacao_obstacles
+from views import visualizacao_estatistica  # view da IC — membros superiores
 
-from views import visualizacao_estatistica
-from views import ml_teste  # importa o pipeline completo com PCA + DBSCAN
+# =============================================================================
+# CONFIGURAÇÃO DA PÁGINA
+# =============================================================================
+st.set_page_config(
+    page_title="StepWise Analitycs",
+    page_icon="🧠",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
-st.set_page_config(page_title="Dashboard Análise de Interações", layout="wide")
+# =============================================================================
+# CABEÇALHO
+# =============================================================================
+st.image("assets/SW w png.png", width=300)
 
-# Configuração do logger
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+# =============================================================================
+# NAVEGAÇÃO POR ABAS
+# =============================================================================
+abas = st.tabs([
+    "🏠 Início",
+    "🦵 Membros Inferiores",
+    "🦾 Membros Superiores",
+    "🤖 Modelo Preditivo",
+])
 
-# ----------- INTERFACE PRINCIPAL ------------------
-
-st.title("🧠 Análise de Interações - Reabilitação Motora")
-
-# -------- Navegação por abas --------
-abas = st.tabs(["🏠 Início", "📊 Visualização Estatística", "🤖 Modelo Preditivo"])
-
-# -------- Página 1: Instruções --------
+# -----------------------------------------------------------------------
+# ABA 1 — Início
+# -----------------------------------------------------------------------
 with abas[0]:
-    st.title("✨Reabilitação assistida por AR: visualização e análise dos dados")
-    st.markdown("""
-    Este dashboard tem como objetivo auxiliar na análise de dados obtidos a partir de interações com softwares de reabilitação.
-                
-    ### 📁 Upload de Arquivo
-    - O arquivo deve estar no formato **.CSV**.
-    - Faça o envio utilizando a barra lateral à esquerda.
-                
-    ### ⚙️ Parâmetros
-    - **Fonte dos dados**: Tipo de câmera utilizada (Infravermelho ou RGB).
+    st.markdown(
+        "Este sistema traduz dados cinemáticos brutos capturados por visão "
+        "computacional em indicadores objetivos do **progresso terapêutico**, auxiliando na tomada de decisão clínica."
+    )
+    st.markdown(
+        """
+        ### 📋 Como usar
 
-    ### 📊 Visualização Estatística
-    - Página destinada a apresentar análises exploratórias iniciais dos dados enviados.
+        1. Acesse a aba correspondente ao tipo de análise desejada.
+        2. Configure os **parâmetros clínicos** na barra lateral (limiares de ângulo,
+           modo de análise).
+        3. Faça o upload do(s) arquivo(s) exportados do software
+           nos formatos **.CSV**, **.XLSX** ou **.XLSM**.
+        4. Os resultados são gerados automaticamente.
 
-    ### 🤖 Modelo Preditivo
-    - Página dedicada à apresentação de resultados gerados pelo modelo de aprendizado de máquina não supervisionado.
-    """)
+        ---
 
-# -------- Página 2: Visualização Estatística --------
+        ### 📌 Abas disponíveis
+
+        | Aba | Descrição |
+        |---|---|
+        | 🦵 Membros Inferiores | Análise da marcha estacionária: flexão de quadril e joelho, simetria, suavidade e compensação postural |
+        | 🦾 Membros Superiores | Análise dos ombros e cotovelos durante o e-Puzzle |
+        | 🤖 Modelo Preditivo | Resultados dos modelos de Aprendizado de Máquina (busca de padrões e compensação de movimento) |
+
+        ---
+
+        ### ⚠️ Atenção
+        Este dashboard é uma ferramenta de **suporte à decisão** e não substitui
+        a avaliação do profissional de saúde.
+        """
+    )
+
+# -----------------------------------------------------------------------
+# ABA 2 — Membros Inferiores (Obstacles) — foco do TCC
+# -----------------------------------------------------------------------
 with abas[1]:
+    visualizacao_obstacles.carregar()
+
+# -----------------------------------------------------------------------
+# ABA 3 — Membros Superiores (IC anterior)
+# -----------------------------------------------------------------------
+with abas[2]:
     visualizacao_estatistica.carregar()
 
+# -----------------------------------------------------------------------
+# ABA 4 — Modelo Preditivo (em desenvolvimento)
+# -----------------------------------------------------------------------
+with abas[3]:
+    st.markdown("## 🤖 Modelo Preditivo")
+    st.info(
+        "Esta seção está em desenvolvimento. "
+        "Os modelos LSTM, CNN 1D e SVM serão integrados aqui após o treinamento.",
+        icon="🔧",
+    )
