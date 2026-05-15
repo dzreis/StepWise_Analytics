@@ -1,13 +1,17 @@
 import streamlit as st
+from PIL import Image
 from views import visualizacao_obstacles
 from views import visualizacao_estatistica  # view da IC — membros superiores
 
 # =============================================================================
 # CONFIGURAÇÃO DA PÁGINA
 # =============================================================================
+# Carrega o ícone da aba do navegador
+icon = Image.open("assets/icon SW.png")
+
 st.set_page_config(
-    page_title="StepWise Analitycs",
-    page_icon="🧠",
+    page_title="StepWise Analytics",
+    page_icon=icon,
     layout="wide",
     initial_sidebar_state="expanded",
 )
