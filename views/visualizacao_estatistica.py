@@ -9,9 +9,9 @@ def carregar():
 
     col1, col2 = st.columns(2)
     with col1:
-        inicio_file = st.file_uploader("📁 CSV do Início", type="csv", key="inicio")
+        inicio_file = st.file_uploader("📁 CSV do Início", type="csv", key="ic_inicio")
     with col2:
-        final_file = st.file_uploader("📁 CSV do Final", type="csv", key="final")
+        final_file  = st.file_uploader("📁 CSV do Final",  type="csv", key="ic_final")
 
     if not (inicio_file and final_file):
         st.info("Envie ambos os arquivos para iniciar a análise.")
