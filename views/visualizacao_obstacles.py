@@ -32,12 +32,11 @@ def _aba_metricas_info():
     Explica ao fisioterapeuta o que é cada métrica calculada pelo dashboard,
     por que ela é relevante e como interpretá-la clinicamente.
     """
-    st.markdown("## 📖 Guia das Métricas")
+    st.markdown("## 📖 Guia das métricas")
     st.markdown(
         "Esta seção explica cada indicador calculado pelo dashboard, "
         "para que o profissional de saúde possa interpretar os resultados com segurança."
     )
-    st.markdown("---")
 
     with st.expander("🧬 O que são Métricas Biomecânicas?", expanded=True):
         st.markdown(
@@ -55,7 +54,6 @@ def _aba_metricas_info():
             """
         )
 
-    st.markdown("---")
 
     with st.expander("⚖️ Índice de Simetria", expanded=False):
         st.markdown(
